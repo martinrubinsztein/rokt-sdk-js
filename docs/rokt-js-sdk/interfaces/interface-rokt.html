@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Rokt · ROKT</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;This object provides the entry point to integrate with Rokt solutions.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Rokt · ROKT"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ROKT.github.io/rokt-sdk-js/index.html"/><meta property="og:description" content="&lt;p&gt;This object provides the entry point to integrate with Rokt solutions.&lt;/p&gt;
+"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/rokt-sdk-js/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="/rokt-sdk-js/fontawesome/brands.min.js"></script><script type="text/javascript" src="/rokt-sdk-js/fontawesome/fontawesome.min.js"></script><script type="text/javascript" src="/rokt-sdk-js/hack-header-icon.js"></script><script type="text/javascript" src="/rokt-sdk-js/hack-contact-us.js"></script><link rel="stylesheet" href="/rokt-sdk-js/css/main.css"/><script src="/rokt-sdk-js/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/rokt-sdk-js/"><img class="logo" src="/rokt-sdk-js/img/rokt-logo-white.svg" alt="ROKT"/></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/rokt-sdk-js/docs/static/static-introduction" target="_self">Docs</a></li><li class=""><a href="/rokt-sdk-js/help" target="_self">Help</a></li><li class=""><a href="https://rokt.com/engineering-blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Rokt JS SDK</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting started</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rokt-sdk-js/docs/static/static-introduction">Introduction</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Rokt JS SDK</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rokt-sdk-js/docs/rokt-js-sdk/rokt-js-sdk-introduction">Introduction</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt">Rokt</a></li><li class="navListItem"><a class="navItem" href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-attributes">Attributes</a></li><li class="navListItem"><a class="navItem" href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-cart">Cart</a></li><li class="navListItem"><a class="navItem" href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-cart-item">CartItem</a></li><li class="navListItem"><a class="navItem" href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-placement-close-event">PlacementCloseEvent</a></li><li class="navListItem"><a class="navItem" href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt-configuration">RoktConfiguration</a></li><li class="navListItem"><a class="navItem" href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-widget">Widget</a></li><li class="navListItem"><a class="navItem" href="/rokt-sdk-js/docs/rokt-js-sdk/enums/enumeration-failure-reason">FailureReason</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Rokt</h1></header><article><div><span><p>This object provides the entry point to integrate with Rokt solutions.</p>
+<p>The Rokt object will be available as a global variable under a name specified in your tag script. Your tag script should resemble the following initialization code snippet:</p>
+<pre><code class="hljs css language-JavaScript">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">r,o,k,t,n,e,w,a,_</span>)</span>{r._ROKT_=n;r[n]=r[n]\|\|{<span class="hljs-attr">id</span>:t,<span class="hljs-attr">h</span>:w,<span class="hljs-attr">lc</span>:[],<span class="hljs-attr">it</span>:<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(),<span class="hljs-attr">onLoaded</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">c</span>)</span>{r[n].lc.push(c)}};a=o.createElement(<span class="hljs-string">'script'</span>);a.type=<span class="hljs-string">'text/javascript'</span>;a.async=!<span class="hljs-number">0</span>;a.src=k;<span class="hljs-keyword">if</span>(e){a.integrity=e;a.crossOrigin=<span class="hljs-string">'anonymous'</span>}_=o.getElementsByTagName(<span class="hljs-string">'script'</span>)[<span class="hljs-number">0</span>];_.parentNode.insertBefore(a,_)})(<span class="hljs-built_in">window</span>,<span class="hljs-built_in">document</span>,<span class="hljs-string">'https://roktcdn1.akamaized.net/js-sdk/rokt.js'</span>,<span class="hljs-string">'roktTagID'</span>,<span class="hljs-string">'rokt'</span>);
+</code></pre>
+<p>Please notice the following important parameters in the arguments list above:</p>
+<ul>
+<li><a href="https://roktcdn1.akamaized.net/js-sdk/rokt.js">https://roktcdn1.akamaized.net/js-sdk/rokt.js</a> - is the URL pointing to the latest version of the Rokt object,</li>
+<li>roktTagID - represents your unique Rokt tag ID and should be replaced with the correct value,</li>
+<li>rokt - is the name under which this object will be exposed on your window object, in this case it will be accessible using <code>window.rokt</code> or simply <code>rokt</code></li>
+</ul>
+<p>In order to not interfere with your page loading the Rokt object is asynchronously loaded. This means that at the time of running the above initialization snippet the full functionality exposed by the Rokt object will not be available. Only the <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt#onloaded">Rokt.onLoaded</a> function is immediately available, while the rest of the functionality is added when the Rokt object has been fetched and completely loaded. In order to be be informed when you can start integrating fully, you can pass a callback function to <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt#onloaded">Rokt.onLoaded</a> as shown here.</p>
+<pre><code class="hljs css language-JavaScript">rokt.onLoaded(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">rokt</span>) </span>{
+  <span class="hljs-comment">// All functionalities described in this document are already available at this point of time.</span>
+  rokt.init({<span class="hljs-attr">sessionId</span>: <span class="hljs-string">'uniqueSessionId'</span>, <span class="hljs-attr">pageIdentifier</span>: <span class="hljs-string">'checkout.my_upsell_page'</span>});
+});
+</code></pre>
+<p>This object provides high level functionalities, for more specific integration points:</p>
+<p><em><strong>see</strong></em>: <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-cart">Cart</a> for integration with cart</p>
+<p>For general examples, please see <a href="#examples">Examples</a> below.</p>
+<h3><a class="anchor" aria-hidden="true" id="examples"></a><a href="#examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h3>
+<ul>
+<li><a href="#scenario-1">Scenario 1</a> - In-transaction integration</li>
+<li><a href="#scenario-2">Scenario 2</a> - Conversion integration</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="scenario-1"></a><a href="#scenario-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Scenario 1</h4>
+<p>This scenario involves your backend issuing call to Rokt to check if any placements are available for you to decide if your up-sell page should be displayed or skipped. In this scenario, your pages are most likely generated on backend and you have already passed your consumer data with initial call to Rokt backend. Since that call may have already generated your session id, Rokt JavaScript API requires you to pass your session ID to <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt#init">Rokt.init</a> method so both interactions can be paired together for identification and performance reasons. A page identifier is also required to identify which page you will be presenting the up-sell. This can be any string that is self describing. If you wish you can additionally provide extra information using [Rokt.setAttributes] to better tailor offers to a consumer. In some cases, depending on your catalog provider, additional information may be required by Rokt to be able to retrieve catalog items.</p>
+<pre><code class="hljs css language-JavaScript">rokt.onLoaded(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">rokt</span>) </span>{
+  rokt.init({
+    <span class="hljs-attr">sessionId</span>: <span class="hljs-string">'uniqueSessionId'</span>, <span class="hljs-comment">// session ID generated by Rokt backend.</span>
+    pageIdentifier: <span class="hljs-string">'checkout.my_upsell_page'</span>, <span class="hljs-comment">// identify your page with a descriptive string.</span>
+  });
+
+  rokt.setAttributes({
+    <span class="hljs-attr">eventId</span>: <span class="hljs-string">'eventId'</span>,
+    <span class="hljs-attr">venueName</span>: <span class="hljs-string">'venueName'</span>,
+  });
+
+  <span class="hljs-comment">// Additional code may be placed here, please see Scenarios 1.X below</span>
+});
+</code></pre>
+<p><em><strong>see</strong></em>: Scenarios 1.X below on additional use cases</p>
+<p><em><strong>see</strong></em>: <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt#onloaded">Rokt.onLoaded</a> - on more information about <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt#onloaded">Rokt.onLoaded</a></p>
+<p><em><strong>see</strong></em>: <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt#init">Rokt.init</a> - on more information about <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt#init">Rokt.init</a></p>
+<p><em><strong>see</strong></em>: <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt-configuration">RoktConfiguration</a> - on configuration object to be passed to <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt#init">Rokt.init</a> method</p>
+<h4><a class="anchor" aria-hidden="true" id="scenario-11"></a><a href="#scenario-11" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Scenario 1.1</h4>
+<p>In this extension we integrate with the Rokt cart. The main point of integration is for your front-end to be notified whenever user selects a Rokt up-sell opportunity and to be able to reflect that change in your cart. This is achieved by providing a callback to <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-cart#onupdateitem">Cart.onUpdateItem</a> method, which will be triggered every time user makes changes to selected items on Rokt side.</p>
+<pre><code class="hljs css language-JavaScript">rokt.onLoaded(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">rokt</span>) </span>{
+  (...)
+
+  rokt.cart.onUpdateItem(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">updatedItem, oldItem</span>) </span>{
+    <span class="hljs-comment">// Below you should provide your code  is your code allowing you to integrate</span>
+    clientCart.updateCart(updatedItem);
+  });
+});
+</code></pre>
+<p><em><strong>see</strong></em>: <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-cart#onupdateitem">Cart.onUpdateItem</a></p>
+<h4><a class="anchor" aria-hidden="true" id="scenario-12"></a><a href="#scenario-12" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Scenario 1.2</h4>
+<p>In this extension we set initial state of the Rokt cart. This may be desirable on subsequent displays of up-sell opportunity page as we want to present user with their previously selected offers/items.</p>
+<pre><code class="hljs css language-JavaScript">rokt.onLoaded(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">rokt</span>) </span>{
+  (...)
+
+  rokt.cart.setItems([{
+    <span class="hljs-attr">catalogItemId</span>: <span class="hljs-string">'itemId'</span>,
+    <span class="hljs-comment">// other cart item values</span>
+  }]);
+</code></pre>
+<p><em><strong>see</strong></em>: <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-cart#setitems">Cart.setItems</a> - for <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-cart#setitems">Cart.setItems</a> method details</p>
+<p><em><strong>see</strong></em>: <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-cart-item">CartItem</a> - for available <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-cart-item">CartItem</a> properties</p>
+<h4><a class="anchor" aria-hidden="true" id="scenario-2"></a><a href="#scenario-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Scenario 2</h4>
+<p>This scenario involves an advertiser integrating with the Rokt solution to check for a conversion. The work required to integrate is minimal and only involves providing known details about advertiser's customer for the purpose of attribution.</p>
+<pre><code class="hljs css language-JavaScript">rokt.onLoaded(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">rokt</span>) </span>{
+  rokt.setAttributes({
+    <span class="hljs-attr">hashedEmail</span>: <span class="hljs-string">'CA977CC344C4FCEF29E17A9BFD6B89E5B8CA5CDF4C9FBF4AB6E88F10DA0945C8'</span>,
+    <span class="hljs-attr">transactionAmount</span>: <span class="hljs-number">135.50</span>,
+  });
+});
+</code></pre>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="properties"></a><a href="#properties" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Properties</h2>
+<p><a id="cart"></a></p>
+<h3><a class="anchor" aria-hidden="true" id="cart"></a><a href="#cart" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>cart</h3>
+<p><strong>● cart</strong>: <em><a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-cart">Cart</a></em></p>
+<p>Provides access to cart integration</p>
+<p><em><strong>see</strong></em>: <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-cart">Cart</a></p>
+<hr>
+<p><a id="version"></a></p>
+<h3><a class="anchor" aria-hidden="true" id="version"></a><a href="#version" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>version</h3>
+<p><strong>● version</strong>: <em><code>string</code></em></p>
+<p>Rokt JavaScript API version.</p>
+<hr>
+<p><a id="widget"></a></p>
+<h3><a class="anchor" aria-hidden="true" id="widget"></a><a href="#widget" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>widget</h3>
+<p><strong>● widget</strong>: <em><a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-widget">Widget</a></em></p>
+<p>Provides access to widget integration</p>
+<p><em><strong>see</strong></em>: <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-widget">Widget</a></p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="methods"></a><a href="#methods" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Methods</h2>
+<p><a id="closeall"></a></p>
+<h3><a class="anchor" aria-hidden="true" id="closeall"></a><a href="#closeall" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>closeAll</h3>
+<p>▸ <strong>closeAll</strong>(): <code>void</code></p>
+<p>Close/Unload all placements on the page</p>
+<p><strong>Returns:</strong> <code>void</code></p>
+<hr>
+<p><a id="init"></a></p>
+<h3><a class="anchor" aria-hidden="true" id="init"></a><a href="#init" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>init</h3>
+<p>▸ <strong>init</strong>(configuration: <em><a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt-configuration">RoktConfiguration</a></em>): <code>void</code></p>
+<p>Sets information allowing to identify you or your consumer.</p>
+<p><em><strong>see</strong></em>: <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt-configuration">RoktConfiguration</a> on details of available parameters.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>configuration</td><td><a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt-configuration">RoktConfiguration</a></td><td>Configuration object</td></tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>void</code></p>
+<hr>
+<p><a id="onfailure"></a></p>
+<h3><a class="anchor" aria-hidden="true" id="onfailure"></a><a href="#onfailure" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>onFailure</h3>
+<p>▸ <strong>onFailure</strong>(failureCallback: <em><a href="/rokt-sdk-js/docs/rokt-js-sdk/rokt-js-sdk-introduction#onfailurecallback">OnFailureCallback</a></em>): <code>void</code></p>
+<p>Accepts a callback which will be triggered when Rokt object fails to load/cannot be displayed correctly. For example, this scenario can happen when encountering very old browser that is not supported by Rokt as per agreement with client.</p>
+<p><em><strong>example</strong></em>:</p>
+<pre><code class="hljs css language-JavaScript">rokt.onFailure(<span class="hljs-function">(<span class="hljs-params">reason</span>) =&gt;</span> {
+ <span class="hljs-comment">// Use this hook to display error or navigate to another page</span>
+})
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>failureCallback</td><td><a href="/rokt-sdk-js/docs/rokt-js-sdk/rokt-js-sdk-introduction#onfailurecallback">OnFailureCallback</a></td><td>Callback to be triggered when Rokt object is ready</td></tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>void</code></p>
+<hr>
+<p><a id="onloaded"></a></p>
+<h3><a class="anchor" aria-hidden="true" id="onloaded"></a><a href="#onloaded" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>onLoaded</h3>
+<p>▸ <strong>onLoaded</strong>(onLoadedCallback: <em><code>function</code></em>): <code>void</code></p>
+<p>Accepts a callback which will be triggered once Rokt object has been loaded and is ready to use. Callback will be triggered immediately if Rokt object is already ready.</p>
+<p>You can invoke this method multiple times each time passing a unique callback. They will be all executed in the order they were passed once Rokt object is ready to integrate. This approach may be useful in case of Single Page Applications in which integration points may happen in multiple places in the JavaScript code.</p>
+<p><em><strong>example</strong></em>:</p>
+<pre><code class="hljs css language-JavaScript">rokt.onLoaded(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+ <span class="hljs-comment">// Now you can interact with Rokt object</span>
+});
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>onLoadedCallback</td><td><code>function</code></td><td>Callback to be triggered when Rokt object has been loaded</td></tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>void</code></p>
+<hr>
+<p><a id="setattributes"></a></p>
+<h3><a class="anchor" aria-hidden="true" id="setattributes"></a><a href="#setattributes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>setAttributes</h3>
+<p>▸ <strong>setAttributes</strong>(attributes: <em><a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-attributes">Attributes</a></em>): <code>void</code></p>
+<p>Sets attributes which allow Rokt to better tailor offer to a consumer. Those attributes may include consumer email, first name, last name, etc. Depending on your catalog provider, additional information may be required by Rokt to be able to retrieve catalog items, e.g. for ticketing partners <code>eventId</code> is required.</p>
+<p><a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt#setattributes">Rokt.setAttributes</a> performs a shallow merge of passed attributes into the existing attributes.</p>
+<p>Since passing browser's user agent is required attributes store its value under <code>userAgent</code> property by default.</p>
+<p><em><strong>default</strong></em>:</p>
+<pre><code class="hljs css language-JavaScript">{
+ <span class="hljs-attr">userAgent</span>: <span class="hljs-string">'Mozilla/5.0 (...)'</span>, <span class="hljs-comment">// window.navigator.userAgent value</span>
+}
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>attributes</td><td><a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-attributes">Attributes</a></td><td>Dictionary with data such as first name, last name, email, etc.</td></tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>void</code></p>
+<hr>
+<p><a id="setconsumerdata"></a></p>
+<h3><a class="anchor" aria-hidden="true" id="setconsumerdata"></a><a href="#setconsumerdata" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>setConsumerData</h3>
+<p>▸ <strong>setConsumerData</strong>(data: <em><a href="/rokt-sdk-js/docs/rokt-js-sdk/rokt-js-sdk-introduction#consumerdata">ConsumerData</a></em>): <code>void</code></p>
+<p><em><strong>deprecated</strong></em>: please use <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt#setattributes">Rokt.setAttributes</a> instead. <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt#setconsumerdata">Rokt.setConsumerData</a> will be removed once deprecation period expires.</p>
+<p>Sets additional consumer data which allow Rokt to better tailor offers to a consumer.</p>
+<p>For your convenience, Rokt allows to set consumer data through JavaScript, i.e. this method and/or by providing additional information to Rokt Back-end API calls. It is up to your preference which method of providing user context you choose, however some of them may be tailored better for different solutions on your end. For example, for Single Page Applications it may be more convenient to use JavaScript to add additional information as user traverse through your page. Whereas, if you use server generated pages it may be more convenient to connect to Rokt backend directly and set information.</p>
+<p>Regardless which method you will use consumer data will be matched correctly as long as you provide matching rokt session ID, see <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt#init">Rokt.init</a> and <a href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-rokt-configuration">RoktConfiguration</a> for more details.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th></tr>
+</thead>
+<tbody>
+<tr><td>data</td><td><a href="/rokt-sdk-js/docs/rokt-js-sdk/rokt-js-sdk-introduction#consumerdata">ConsumerData</a></td></tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> <code>void</code></p>
+<hr>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/rokt-sdk-js/docs/rokt-js-sdk/rokt-js-sdk-introduction"><span class="arrow-prev">← </span><span>Introduction</span></a><a class="docs-next button" href="/rokt-sdk-js/docs/rokt-js-sdk/interfaces/interface-attributes"><span>Attributes</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#properties">Properties</a><ul class="toc-headings"><li><a href="#cart">cart</a></li><li><a href="#version">version</a></li><li><a href="#widget">widget</a></li></ul></li><li><a href="#methods">Methods</a><ul class="toc-headings"><li><a href="#closeall">closeAll</a></li><li><a href="#init">init</a></li><li><a href="#onfailure">onFailure</a></li><li><a href="#onloaded">onLoaded</a></li><li><a href="#setattributes">setAttributes</a></li><li><a href="#setconsumerdata">setConsumerData</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>DOCS</h5><a href="/rokt-sdk-js/docs/en/doc1.html">Getting Started</a><a href="/rokt-sdk-js/docs/en/doc2.html">Rokt Javascript SDK</a><a href="/rokt-sdk-js/docs/en/doc3.html">Rokt HTTP API</a></div><div><h5>ROKT</h5><a href="https://rokt.com/privacy-policy/">Privacy Policy</a><a href="https://rokt.com/contact-us/">Contact Us</a><a href="https://rokt.com/engineering-blog/">Blog</a></div><div><a href="https://rokt.com" class="nav-home"><img src="/rokt-sdk-js/img/rokt-logo-white.svg" alt="ROKT"/></a><div class="social"><a href="https://www.facebook.com/ROKT"><i class="fab fa-facebook-square"></i></a><a href="https://tweeter.com/rokt"><i class="fab fa-twitter-square"></i></a><a href="https://www.linkedin.com/company/rokt"><i class="fab fa-linkedin"></i></a></div></div></section><section class="copyright">Copyright © ROKT 2019 - All Rights Reserved</section></footer></div></body></html>
